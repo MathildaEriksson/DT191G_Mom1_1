@@ -1,47 +1,67 @@
 ﻿<!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Moment 1.1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/mom1._1.styles.css" asp-append-version="true" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Moment 1.1</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Razor">Razor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">Om sidan</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="site-content">
+        <header class="w-100 d-flex justify-content-around align-items-center">
+            <img src="~/img/logo.png" alt="Logo" class="m-4">
+            @{
+                string dateString = DateTime.Now.ToString("yyyy-MM-dd"); //Get todays date with only date part.
+                <p class="p-2 border">Dagens datum är: @dateString</p>
+            }
+        </header>
+
+        <div class="container border-top">
+            <div class="row">
+                <nav class="col-md-3">
+                    <div class="navbar navbar-expand-md navbar-light box-shadow mb-3">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        @{
+                            // Determine the active page
+                            var activePage = Context.Request.Path;
+                        }
+                        <div class="navbar-collapse collapse">
+                            <ul class="navbar-nav flex-column w-100 text-center">
+                                <li class="nav-item m-2">
+                                    <a class="@(activePage == "/" ? "nav-link text-light active-link" : "nav-link text-dark")"
+                                        asp-area="" asp-page="/Index">Start</a>
+                                </li>
+                                <li class="nav-item m-2">
+                                    <a class="@(activePage == "/Razor" ? "nav-link text-light active-link" : "nav-link text-dark")"
+                                        asp-area="" asp-page="/Razor">Razor</a>
+                                </li>
+                                <li class="nav-item m-2">
+                                    <a class="@(activePage == "/About" ? "nav-link text-light active-link" : "nav-link text-dark")"
+                                        asp-area="" asp-page="/About">Om sidan</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <main role="main" class="col-md-9 p-3">
+                    @RenderBody()
+                </main>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; Mathilda Eriksson, DT191G - Kontakta mig via <a href="mailto:maer1200@student.miun.se">maer1200@student.miun.se</a>
+    <footer class="border-top footer">
+        <div class="container p-3 text-center">
+            &copy; Mathilda Eriksson, DT191G - Kontakta mig via <a
+                href="mailto:maer1200@student.miun.se">maer1200@student.miun.se</a>
         </div>
     </footer>
 
@@ -51,4 +71,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

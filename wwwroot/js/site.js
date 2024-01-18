@@ -1,4 +1,20 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Mathilda Eriksson DT191G
 
-// Write your JavaScript code.
+document.addEventListener("DOMContentLoaded", function() {
+    const greetElement = document.getElementById('timeBasedGreeting');
+
+    if (greetElement) { // Check if the element exists
+        const currentHour = new Date().getHours();
+        let greetingMessage;
+
+        if (currentHour < 12) {
+            greetingMessage = 'Godmorgon!';
+        } else if (currentHour < 18) {
+            greetingMessage = 'Goddag!';
+        } else {
+            greetingMessage = 'Godkväll!';
+        }
+
+        greetElement.textContent = greetingMessage;
+    }
+});
